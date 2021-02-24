@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cmsmvc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cmsmvc
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: cmsmvc
+        version: v1
+    spec:
+      serviceAccountName: natcms
+      containers:
+      - image: harbor.islands.cloud/development/cmsmvc
+        imagePullPolicy: Always
+        name: cmsmvc-container
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: secrets-cms
+          mountPath: /app/secrets
+          readOnly: true
+      volumes:
+      - name: secrets-cms
+        secret:
+          secretName: cmsmvc-appsettings

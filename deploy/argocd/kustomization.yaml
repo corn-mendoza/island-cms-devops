@@ -1,0 +1,5 @@
+resources:
+- base/island-cms-svcacct.yaml
+- base/island-cms-svc.yaml
+- base/island-cms-deployment.yaml
+- base/island-cms-ingress.yaml
